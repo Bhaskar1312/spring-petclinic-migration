@@ -83,3 +83,14 @@ The diff shows how, among other changes, Rewrite has removed unnecessary `@Autow
 
 ![Git diff showing removal of unnecessary @Autowired and migration of @RequestMapping](https://github.com/openrewrite/spring-petclinic-migration/raw/1.5.x/docs/diff_request_mapping.png)
 
+
+Known Limitations
+Not every JUnit 4 feature or library has a direct JUnit 5 equivalent. 
+In these cases, manual changes will be required after the automation has run. 
+This list is not exhaustive. See the rewrite-testing-frameworks issue tracker.
+Unsupported Functionality
+**Powermock** has no JUnit 5 equivalent
+The JUnit5 equivalent to JUnit4 ClassPathSuite is not yet released
+org.junit.ComparisonFailure
+org.junit.MethodRule
+TestRule, TestWatcher, and Description
