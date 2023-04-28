@@ -1,11 +1,13 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'org.openrewrite.rewrite' version '5.40.0'
 }
 
+
 repositories {
-    mavenLocal()
-    mavenCentral()
+//    mavenLocal()
+    mavenCentral() // rewrite-testing-frameworks is published to Maven Central
 }
 
 dependencies {
@@ -40,7 +42,17 @@ dependencies {
     testImplementation 'org.hamcrest:hamcrest-library'
     testImplementation 'org.assertj:assertj-core'
     testImplementation 'com.jayway.jsonpath:json-path'
+
+    rewrite platform('org.openrewrite.recipe:rewrite-recipe-bom:1.18.0')
+    rewrite 'org.openrewrite.recipe:rewrite-spring'
 }
+
+rewrite {
+    activeRecipe(
+            'org.openrewrite.java.spring.boot2.SpringBoot2JUnit4to5Migration',
+    )
+}
+// now run ./gradlew rewriteRun
 
 group = 'org.springframework.samples'
 version = '1.5.1'
