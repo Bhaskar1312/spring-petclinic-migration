@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'org.openrewrite.rewrite' version '5.40.0'
 }
 
 repositories {
@@ -57,4 +58,9 @@ publishing {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+rewrite {
+    activeRecipe(
+        'org.openrewrite.java.format.AutoFormat',
+    )
 }
