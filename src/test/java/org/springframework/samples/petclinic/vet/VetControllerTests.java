@@ -1,9 +1,8 @@
 package org.springframework.samples.petclinic.vet;
 
 import org.assertj.core.util.Lists;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @WebMvcTest(VetController.class)
-public class VetControllerTests {
+class VetControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -30,8 +29,8 @@ public class VetControllerTests {
     @MockBean
     private VetRepository vets;
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         Vet james = new Vet();
         james.setFirstName("James");
         james.setLastName("Carter");
@@ -48,7 +47,7 @@ public class VetControllerTests {
     }
 
     @Test
-    public void testShowVetListHtml() throws Exception {
+    void testShowVetListHtml() throws Exception {
         mockMvc.perform(get("/vets.html"))
             .andExpect(status().isOk())
             .andExpect(model().attributeExists("vets"))
@@ -56,7 +55,7 @@ public class VetControllerTests {
     }
 
     @Test
-    public void testShowResourcesVetList() throws Exception {
+    void testShowResourcesVetList() throws Exception {
         ResultActions actions = mockMvc.perform(get("/vets.json")
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
@@ -64,7 +63,7 @@ public class VetControllerTests {
     }
 
     @Test
-    public void testShowVetListXml() throws Exception {
+    void testShowVetListXml() throws Exception {
         mockMvc.perform(get("/vets.xml").accept(MediaType.APPLICATION_XML))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))

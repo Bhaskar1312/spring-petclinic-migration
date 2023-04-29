@@ -40,9 +40,9 @@
       <version>1.0.3</version>
     </dependency>
     <dependency>
-        <groupId>jakarta.xml.bind</groupId>
-        <artifactId>jakarta.xml.bind-api</artifactId>
-        <version>2.3.3</version>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>2.3.3</version>
     </dependency>
     <!-- Spring and Spring Boot dependencies -->
     <dependency>
@@ -65,18 +65,56 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
       <exclusions>
-      	<exclusion>
-      		<groupId>nz.net.ultraq.thymeleaf</groupId>
-      		<artifactId>thymeleaf-layout-dialect</artifactId>
-      	</exclusion>
+        <exclusion>
+          <groupId>nz.net.ultraq.thymeleaf</groupId>
+          <artifactId>thymeleaf-layout-dialect</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
-
+    <dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <version>1.1.1</version>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.7.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.7.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.openrewrite.recipe</groupId>-->
+<!--      <artifactId>rewrite-testing-frameworks</artifactId>-->
+<!--      <version>1.36.0</version>-->
+<!--    </dependency>-->
     <!-- Databases - Uses HSQL by default -->
     <dependency>
       <groupId>org.hsqldb</groupId>
@@ -126,6 +164,18 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest</artifactId>
+      <version>2.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.9.3</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -202,6 +252,24 @@
           </dependency>
         </dependencies>
       </plugin>
+
+        <plugin>
+            <groupId>org.openrewrite.maven</groupId>
+            <artifactId>rewrite-maven-plugin</artifactId>
+            <version>4.44.0</version>
+            <configuration>
+                <activeRecipes>
+                    <recipe>org.openrewrite.java.testing.junit5.JUnit5BestPractices</recipe>
+                </activeRecipes>
+            </configuration>
+            <dependencies>
+                <dependency>
+                    <groupId>org.openrewrite.recipe</groupId>
+                    <artifactId>rewrite-testing-frameworks</artifactId>
+                    <version>1.36.0</version>
+                </dependency>
+            </dependencies>
+        </plugin>
     </plugins>
   </build>
   <reporting>
